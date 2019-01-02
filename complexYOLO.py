@@ -1,6 +1,7 @@
-'''
-    Define CNN layers; see paper for more details.
-'''
+"""
+    Specifies the architecture for the Complex YOLO model.
+"""
+
 
 import torch.nn as nn
 import torch.nn.functional as F
@@ -78,6 +79,7 @@ class ComplexYOLO(nn.Module):
         self.conv_18 = nn.Conv2d(in_channels=1024,out_channels=75,kernel_size=1,stride=1,padding=0)
 
         self.relu = nn.ReLU(inplace=True)
+        self.conv2_drop = nn.Dropout2d(p = 0.2)
 
     def forward(self,x):
         x = self.relu(self.bn_1(self.conv_1(x)))
@@ -113,5 +115,7 @@ class ComplexYOLO(nn.Module):
         x = torch.cat((reorg_result,x),1)
         x = self.relu(self.bn_17(self.conv_17(x)))
         x = self.conv_18(x)
+        
+        x = self.conv2_drop(x)
 
         return x

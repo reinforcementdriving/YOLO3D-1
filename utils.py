@@ -1,7 +1,7 @@
-'''
-    Utilities for pre- and post-processing the data.  
-    Inspired by https://github.com/marvis/pytorch-yolo2/blob/master/utils.py
-'''
+"""
+    Util scripts for building features, fetching ground truths, computing IoU, etc. 
+"""
+
 
 import torch
 import torch.nn as nn
@@ -263,6 +263,7 @@ def bbox_iou(box1, box2, x1y1x2y2=True):
     area2 = w2 * h2
     carea = cw * ch
     uarea = area1 + area2 - carea
+    # import pdb; pdb.set_trace()
     return carea/uarea
 
 def bbox_ious(boxes1, boxes2, x1y1x2y2=True):
